@@ -29,3 +29,23 @@ dc list
 project-a     /home/user/project-a/docker-composer.yml
 project-b     /home/user/project-b/docker-composer.yml
 ```
+
+### Switching to given environment
+
+```
+dc switch project-a
+Switched to project-a (/home/user/project-a/docker-compose.yml)
+```
+
+### Checking active environment
+
+```
+dc env
+Currently at project-a environment
+```
+
+```
+dc list
+project-a     *	/home/user/project-a/docker-composer.yml
+project-b     	/home/user/project-b/docker-composer.yml
+```
