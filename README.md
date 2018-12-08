@@ -6,7 +6,11 @@ docker-compose-wrapper lets you to work with docker-compose with multiple enviro
 
 ## Installation
 
+You can create a symlink to install this script globally. You need to be root user or use ```sudo```.
+
 ```ln -s $(pwd)/dc.sh /usr/bin/dc```
+
+If you don't want to install it globally, you should update your ```$PATH``` environment variable adding path to script location.
 
 ## Usage
 
