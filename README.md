@@ -22,6 +22,14 @@ dc add project-b /home/user/project-b/docker-compose.yml
 Environment project-b has been created (/home/user/project-b/docker-compose.yml)
 ```
 
+If you wish to switch to given environment just after it's created, use ```-s``` flag
+
+```
+dc add project-b /home/user/project-b/docker-compose.yml -s
+Environment project-c has been created (/home/user/project-c/docker-compose.yml)
+Switched to project-c (/home/user/project-c/docker-compose.yml)
+```
+
 ### Displaying list of available environments
 
 ```
