@@ -49,3 +49,21 @@ dc list
 project-a     *	/home/user/project-a/docker-composer.yml
 project-b     	/home/user/project-b/docker-composer.yml
 ```
+
+### Changing configuration file for given environment
+
+```
+dc change project-b /home/user/project-b/composer.yml
+```
+
+### Removing environment
+
+```
+dc rme project-b
+```
+
+### Removing all environments
+
+```
+dc rme $(dc list -q)
+```
