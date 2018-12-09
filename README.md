@@ -99,3 +99,6 @@ Executing command "docker-compose -f /home/user/project-a/docker-compose.yml up 
 dc stop
 Executing command "docker-compose -f /home/user/project-a/docker-compose.yml stop" on environment project-a
 ```
+
+As you can see, wrapper passes command and arguments to docker-compose appending your active environment configuration path on the fly.
+You are informed what command is being run internally.
