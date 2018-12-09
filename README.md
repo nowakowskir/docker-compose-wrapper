@@ -18,7 +18,7 @@ You can create a symlink to install this script globally. You need to be root us
 
 You can also copy the file directly to ```/usr/bin/``` directory.
 
-```cp $(pwd)/dc.sh /usr/bin/dc```
+```cp dc.sh /usr/bin/dc```
 
 Alternatively, if you don't want to install script globally, you can add script's directory to your ```$PATH``` system environment.
 
