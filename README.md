@@ -93,11 +93,15 @@ If you already set up your environment, you can use docker-compose from any loca
 ```
 dc up -d
 Executing command "docker-compose -f /home/user/project-a/docker-compose.yml up -d" on environment project-a
+
+docker-compose output here...
 ```
 
 ```
 dc stop
 Executing command "docker-compose -f /home/user/project-a/docker-compose.yml stop" on environment project-a
+
+docker-compose output here...
 ```
 
 As you can see, wrapper passes command and arguments to docker-compose appending your active environment configuration path on the fly.
