@@ -4,6 +4,12 @@
 
 docker-compose-wrapper lets you to work with docker-compose with multiple environments.
 
+Although docker-compose lets you to work on different configurations by specifying ```-f``` option, it could be cumbersome doing so each time you run any docker-compose command. You may want to use docker-compose from any other directory than your compose file exists.
+
+To avoid such problems, and improve user experience, you can bind given compose file with environment name and use it as a reference.
+
+This script lets you create predefined list of config-environment pairs. You can set given environment as active and skip its name in any docker compose command until you need to switch to other environment.
+
 ## Installation
 
 You can create a symlink to install this script globally. You need to be root user or use ```sudo```.
