@@ -92,10 +92,10 @@ If you already set up your environment, you can use docker-compose from any loca
 
 ```
 dc up -d
-Executing command "docker-compose -f /home/user/project-b/docker-compose.yml up -d" on environment project-b
+Executing command "docker-compose -f /home/user/project-a/docker-compose.yml up -d" on environment project-a
 ```
 
 ```
 dc stop
-Executing command "docker-compose -f /home/user/project-b/docker-compose.yml stop" on environment project-b
+Executing command "docker-compose -f /home/user/project-a/docker-compose.yml stop" on environment project-a
 ```
