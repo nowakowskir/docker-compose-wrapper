@@ -16,7 +16,13 @@ You can create a symlink to install this script globally. You need to be root us
 
 ```ln -s $(pwd)/dc.sh /usr/bin/dc```
 
-If you don't want to install it globally, you should update your ```$PATH``` environment variable adding path to script location.
+You can also copy the file directly to ```/usr/bin/``` directory.
+
+```cp $(pwd)/dc.sh /usr/bin/dc```
+
+Alternatively, if you don't want to install script globally, you can add script's directory to your ```$PATH``` system environment.
+
+```ln -s dc.sh dc && echo "export PATH=\$PATH:$(pwd)" >> ~/.bashrc && source ~/.bashrc```
 
 ## Usage
 
@@ -44,8 +50,8 @@ Switched to project-c (/home/user/project-c/docker-compose.yml)
 
 ```
 dc list
-project-a     /home/user/project-a/docker-composer.yml
-project-b     /home/user/project-b/docker-composer.yml
+project-a     /home/user/project-a/docker-compose.yml
+project-b     /home/user/project-b/docker-compose.yml
 ```
 
 ### Switching to given environment
@@ -64,14 +70,14 @@ Currently at project-a environment
 
 ```
 dc list
-project-a     *	/home/user/project-a/docker-composer.yml
-project-b     	/home/user/project-b/docker-composer.yml
+project-a     *	/home/user/project-a/docker-compose.yml
+project-b     	/home/user/project-b/docker-compose.yml
 ```
 
 ### Changing configuration file for given environment
 
 ```
-dc change project-b /home/user/project-b/composer.yml
+dc change project-b /home/user/project-b/compose.yml
 ```
 
 ### Removing environment

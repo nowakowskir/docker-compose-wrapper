@@ -47,7 +47,7 @@ function check_file {
 
 # Display configuration data based on current state
 # This output will be used to store current configuration in config file
-function cfgdata {
+function config_data {
 	echo "ENV_CURR=${ENV_CURR}"
 	echo "declare -A CONF=()"
 	for K in "${!CONF[@]}"; do
@@ -56,8 +56,13 @@ function cfgdata {
 }
 
 # Write current configuration to config file
-function writecfg {
-	echo "$(cfgdata)" > $CONFIG_PATH
+function write_config {
+	echo "$(config_data)" > $CONFIG_PATH 2>/dev/null
+	if [ $? -ne 0 ]; then
+		echo "Can not create config file ($CONFIG_PATH)"
+			
+		exit 1;
+	fi
 }
 
 # Check if there is active environment
@@ -98,7 +103,7 @@ function switch {
 	ENV_CURR=$1
 	[ "$INITIAL_ENV" = "$ENV_CURR" ] && echo "Already at $ENV_CURR" || {
 		# Write active environment to config file 
-		writecfg
+		write_config
 		echo "Switched to $ENV_CURR (${CONF[$ENV_CURR]})"
 	}
 }
@@ -150,7 +155,7 @@ function add {
 	CONF[$1]=$2
 	
 	# Rebuild configuration
-	writecfg
+	write_config
 
 	echo "Environment $1 has been created ($2)"
 
@@ -176,7 +181,7 @@ function change {
 	CONF[$1]=$2
 	
 	# Rebuild configuration
-	writecfg
+	write_config
 
 	echo "Environment $1 has been updated ($2)"
 }
@@ -203,7 +208,7 @@ function rme {
 	}
 	
 	# When finished, rebuild configuration
-	writecfg
+	write_config
 }
 
 # Init configuration
@@ -211,38 +216,34 @@ function init {
 
 	# Check if configuration directory exists
 	if [ ! -d "$DC_DIR" ]; then
+
 		# If config directory does not exist, try to create it
 		echo "Creating configuration directory $DC_DIR"
-		mkdir $DC_DIR
-		# Try to create empty config file
-		echo "Creating configuration file $CONFIG_PATH"
-		touch $CONFIG_PATH
-		# For security reasons limit access to the owner only
-		chmod 600 $CONFIG_PATH
-	fi
-
-	# In case directory exists, but config file is missing, try to recreate it
-	if [ ! -f "$CONFIG_PATH" ]; then
-		echo "Creating configuration file $CONFIG_PATH"
-		touch $CONFIG_PATH
-		chmod 600 $CONFIG_PATH
-	fi
-	
-	# Check if config file is readable and writeable
-	if [ -r "$CONFIG_PATH" ] && [ -w "$CONFIG_PATH" ]; then
-		CONFIG=$(source $CONFIG_PATH)
-
-		if [ -z ${ENV_CURR:-} ]; then
-			echo "Empty configuration file detected, creating default configuration"
-			# If configuration is empty, write default configuration
-			writecfg
-			CONFIG=$(source $CONFIG_PATH)
+		mkdir $DC_DIR 2>/dev/null
+		
+		if [ $? -ne 0 ]; then
+			echo "Can not create config directory ($DC_DIR)"
+			
+			exit 1;
 		fi
-	else
-		echo "Can not access configuration file: Permission denied"
-
-		exit 1
 	fi
+
+	# In case directory exists, but config file is missing, try to create it
+	if [ ! -f "$CONFIG_PATH" ]; then
+
+		echo "Creating configuration file $CONFIG_PATH"
+		touch $CONFIG_PATH 2>/dev/null
+		
+		if [ $? -ne 0 ]; then
+			echo "Can not create config file ($CONFIG_PATH)"
+			
+			exit 1;
+		fi
+		
+		chmod 600 $CONFIG_PATH
+		write_config
+	fi
+
 }
 
 # Usage
@@ -273,6 +274,14 @@ usage() {
 
 # Initialize configuration
 init
+
+source $CONFIG_PATH 2>/dev/null
+
+if [ $? -ne 0 ]; then
+	echo "Can not read config file ($CONFIG_PATH)"
+	
+	exit 1
+fi
 
 # Check what to do
 case "$1" in
