@@ -85,3 +85,15 @@ dc rme project-b
 ```
 dc rme $(dc list -q)
 ```
+
+### Running docker-compose commands
+
+If you already set up your environment, you can use docker-compose from any location.
+
+```
+dc up -d
+```
+
+```
+dc stop
+```
