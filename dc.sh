@@ -110,7 +110,7 @@ function switch {
 
 # Show active environment
 function env {
-	[ -z "$ENV_CURR" ] && echo "You did not choose active environment. Please use $0 list to check available environments and $0 switch <environment> to switch to given environment" || echo "Currently at $ENV_CURR environment"
+	[ -z "$ENV_CURR" ] && echo "You did not choose active environment. Please use "$(basename $0)" list to check available environments and "$(basename $0)" switch <environment> to switch to given environment" || echo "Currently at $ENV_CURR environment"
 }
 
 # List environments
@@ -160,7 +160,7 @@ function add {
 	echo "Environment $1 has been created ($2)"
 
 	# If -s flag was set, switch to the new environment automatically
-	[ -n $3 ] && [ ${#3} -gt 0 ] && use $1
+	[ -n $3 ] && [ ${#3} -gt 0 ] && switch $1
 }
 
 # Change compose file for given environment 
@@ -287,7 +287,7 @@ fi
 case "$1" in
 
 	switch)
-		use ${2,}
+		switch ${2,}
 	;;
 
 	add)
