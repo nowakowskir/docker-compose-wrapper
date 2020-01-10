@@ -325,8 +325,8 @@ case "$1" in
 		check_env_exists "$ENV_CURR"
 		check_file "${CONF[$ENV_CURR]}"
 
-		echo "Executing command \"docker-compose -f ${CONF[${ENV_CURR}]} ${@: +1}\" on environment $ENV_CURR"
-		docker-compose -f "${CONF[${ENV_CURR}]}" "${@: +1}"
+		echo "Executing command \"docker-compose -f ${CONF[${ENV_CURR}]} --project-directory=$(dirname ${CONF[${ENV_CURR}]}) ${@: +1}\" on environment $ENV_CURR"
+		docker-compose -f "${CONF[${ENV_CURR}]}" --project-directory=$(dirname ${CONF[${ENV_CURR}]}) "${@: +1}"
 	;;
 	
 esac
